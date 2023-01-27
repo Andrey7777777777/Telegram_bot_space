@@ -13,6 +13,8 @@ def main():
     env.read_env()
     image_folder = env.str('IMAGE_FOLDER', default='images')
     Path(image_folder).mkdir(parents=True, exist_ok=True)
+    tg_bot_token = env.str('TG_BOT_TOKEN')
+    tg_channel_id = env.str('TG_CHANNEL_ID')
     parser = argparse.ArgumentParser(
         description='''Скрипт автоматически публикует изображения в 
                            телеграм-канал "КосмоФото" с заданным интервалом''')
@@ -33,10 +35,10 @@ def main():
         for filename in filenames:
             filepath = os.path.join(directorypath, filename)
             try:
-                publish_image_to_channel(filepath)
+                publish_image_to_channel(filepath, tg_bot_token, tg_channel_id)
             except telegram.error.NetworkError:
                 print('Неудачная попытка соединения')
-                time.sleep(args.interval * 3600)
+            time.sleep(args.interval * 3600)
 
 
 if __name__ == '__main__':
