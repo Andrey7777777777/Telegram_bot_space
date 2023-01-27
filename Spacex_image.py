@@ -15,9 +15,6 @@ def input_parsing_command_line():
 
 
 def fetch_spacex_last_launch(space_id):
-    env = Env()
-    env.read_env()
-    image_folder = env.str('IMAGE_FOLDER', default='images')
     spacex_url = f'https://api.spacexdata.com/v5/launches/{space_id}'
     params = {}
     response = requests.get(spacex_url, params=params)
@@ -28,10 +25,13 @@ def fetch_spacex_last_launch(space_id):
             url_number,
             get_extension(url)
         )
-        upload_image(url, path.join(image_folder, file_name))
+        upload_image(url, path.join(image_folder, file_name), image_folder)
 
 
 if __name__ == '__main__':
+    env = Env()
+    env.read_env()
+    image_folder = env.str('IMAGE_FOLDER', default='images')
     space_id = input_parsing_command_line().id
     fetch_spacex_last_launch(space_id)
 

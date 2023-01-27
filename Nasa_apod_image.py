@@ -34,7 +34,7 @@ def fetch_nasa_image_apod(image_folder, nasa_api_key, images_quantity):
         file_extension = get_extension(image_url)
         image_name = f'nasa{num}{file_extension}'
         try:
-            upload_image(image_url, path.join(image_folder, image_name))
+            upload_image(image_url, path.join(image_folder, image_name), image_folder)
             print(image_url, 'Загружена')
         except requests.exceptions.HTTPError:
             print('Ошибка! Не удалось загрузить фотографию:', image_url)

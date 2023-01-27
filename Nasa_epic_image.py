@@ -14,7 +14,7 @@ def fetch_epic_nasa_image(image_folder, nasa_api_key):
     for image in response_payload:
         file_image_name, epic_image_url = epic_image_name_and_url(image)
         try:
-            upload_image(epic_image_url, path.join(image_folder, file_image_name), params)
+            upload_image(epic_image_url, path.join(image_folder, file_image_name), image_folder, params)
             print(epic_image_url, 'Загружена')
         except requests.exceptions.HTTPError:
             print('Ошибка! Не удалось загрузить фотографию:', epic_image_url)
